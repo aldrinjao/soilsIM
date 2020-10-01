@@ -1,10 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Map, Control, DomUtil, ZoomAnimEvent, Layer, MapOptions, tileLayer, latLng } from 'leaflet';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+
 })
 export class AppComponent {
-  title = 'soilsIM';
+
+  @Output() map$: EventEmitter<Map> = new EventEmitter();
+  @Output() zoom$: EventEmitter<number> = new EventEmitter();
+  @Input() options: MapOptions = {
+
+    layers: [tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      opacity: 1,
+      maxZoom: 19,
+      detectRetina: true,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    })],
+    zoom: 6,
+    center: latLng(13, 120)
+  };
+
+
+  public map: Map;
+  public zoom: number;
+
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.map.clearAllEventListeners();
+    this.map.remove();
+  }
+
+  onMapReady(map: Map) {
+    this.map = map;
+    this.map$.emit(map);
+    this.zoom = map.getZoom();
+    this.zoom$.emit(this.zoom);
+  }
+
+  onMapZoomEnd(e: ZoomAnimEvent) {
+    this.zoom = e.target.getZoom();
+    this.zoom$.emit(this.zoom);
+  }
+
+
 }
