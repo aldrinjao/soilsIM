@@ -1,3 +1,15 @@
 #map{
     height: 100vh;
 }
+
+.sarainav{
+    background:#0e2c1c;
+}
+.filter-spacer{
+    width: 100%;
+}
+
+.mat-dialog-container{
+    background-color: white !important;
+    color: black;
+}

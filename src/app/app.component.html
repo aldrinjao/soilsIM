@@ -1,3 +1,39 @@
+  <mat-toolbar class="sarainav">
+    <mat-toolbar-row>
+
+     <img src="./assets/sarai-logo.png" height="40px"/>
+      <span class="filter-spacer"></span>
+
+      <div fxShow="true" fxHide.lt-md="true">
+
+        <span>
+          <button mat-button>About Us</button>
+
+
+          <button mat-button [matMenuTriggerFor]="beforeMenu">Crops</button>
+          <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item>Item 1</button>
+            <button mat-menu-item>Item 2</button>
+          </mat-menu>
+
+          <button mat-button [matMenuTriggerFor]="beforeMenu">Maps</button>
+          <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item>Item 1</button>
+            <button mat-menu-item>Item 2</button>
+          </mat-menu>
+
+          <button mat-button [matMenuTriggerFor]="afterMenu">Services</button>
+          <mat-menu #afterMenu="matMenu" xPosition="after">
+            <button mat-menu-item>Item 1</button>
+            <button mat-menu-item>Item 2</button>
+          </mat-menu>
+        </span>
+      </div>
+      <span><img src="./assets/dost-pcaarrd-uplb.png" style="width: 110px;"></span>
+
+    </mat-toolbar-row>
+  </mat-toolbar>
+
 <div id="map" class="map-container" leaflet
      [leafletOptions]="options"
      (leafletMapReady)="onMapReady($event)"
