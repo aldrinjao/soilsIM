@@ -1,25 +1,29 @@
 <div class="modal">
-  <h2 mat-dialog-title>Install Angular</h2>
+  <h2 mat-dialog-title>{{data.name}}</h2>
   <mat-dialog-content class="mat-typography">
-    <div style="width: 100%;" fxLayout="column">
-      <div fxLayout="row">
-        <div style="width: 100px;height: 50px;background: red;"></div>
-        <div>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus asperiores voluptatibus neque quod
-          dignissimos nesciunt.
-        </div>
-      </div>
-      <div fxLayout="row">
-        <div style="width: 100px;height: 60px;background: green;"></div>
-        <div>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus asperiores voluptatibus neque quod
-          dignissimos nesciunt. Minus id dolore laborum quam, nesciunt commodi alias enim vitae eaque quibusdam possimus
-          cum exercitationem.
-        </div>
 
+
+    <div class="modalContent">
+      <div class="imageContainer" fxLayout="column" fxLayoutAlign="center center">
+
+          <div *ngFor="let i of data.images;let last = last" [ngClass]="{ 'last' : last }" class="soilSections">
+          
+            <img id="{{i.picId}}" src="../assets/site1/{{i.url}}" (click)="test2(i)">
+            <div style="height: 100%;width: 10px;background: red;"></div>
+          </div>
+
+
+        <button mat-button (click)='clear()'>Clear</button>
       </div>
 
+      <div class="descriptionContainer">
+        <div>
+          <h1>Description</h1>
+          <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </h2>
 
+          {{textContent}}
+      </div>
+      </div>
     </div>
 
 
@@ -28,6 +32,6 @@
 
   <mat-dialog-actions align="end">
     <button mat-button matDialogClose (click)='close()'>Cancel</button>
-    <button mat-button [mat-dialog-close]="true" (click)='close()'>Install</button>
+    <button mat-button [mat-dialog-close]="true" (click)='close()'>Close</button>
   </mat-dialog-actions>
 </div>
