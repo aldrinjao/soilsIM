@@ -50,5 +50,5 @@ Thumbs.db
 
 
 #environment
-/src/environments/
+/src/environments/*
 
