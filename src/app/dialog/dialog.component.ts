@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
+import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 
 @Component({
   selector: 'app-dialog',
@@ -14,35 +15,108 @@ export class DialogComponent implements OnInit {
 
   }
 
+  filtered: any = [];
+  depth: string;
+  latitude: number;
+  longitude: number;
+  locname: string;
+  description: string;
+  dateOfSampling: string;
+  elevation: string;
+  relief: string;
+  parentMaterial: string;
+  collaborator: string;
+  soilSampleNum: string;
+  describedBy: string;
+  drainage: string;
+  itemId: number;
+  images: any = [];
+  depthFlag: boolean;
+
   ngOnInit(): void {
-    console.log('this.data :>> ', this.data);
+    const crops = [...new Set(this.data.map(t => t.crop))];
+    let imagecont = [];
+    const imagecont2 = [];
+    this.depthFlag = false;
+    crops.forEach(crop => {
+
+      const temp = this.data.filter(item => {
+        return item.crop === crop;
+      });
+      this.filtered.push(temp);
+
+    });
+
+    this.itemId = this.filtered[0][0].item_id;
+    this.depth = this.filtered[0][0].depth;
+    this.latitude = this.filtered[0][0].lat;
+    this.longitude = this.filtered[0][0].long;
+    this.locname = this.filtered[0][0].location_name;
+    this.textContent = this.filtered[0][0].description;
+    this.dateOfSampling = this.filtered[0][0].date_of_sampling;
+    this.elevation = this.filtered[0][0].elevation;
+    this.relief = this.filtered[0][0].relief;
+    this.parentMaterial = this.filtered[0][0].parent_material;
+    this.collaborator = this.filtered[0][0].collaborator;
+    this.soilSampleNum = this.filtered[0][0].soil_sample_num;
+    this.describedBy = this.filtered[0][0].described_by;
+    this.drainage = this.filtered[0][0].drainage;
+
+
+    this.filtered.forEach(i => {
+      imagecont = [];
+      i.forEach(im => {
+        if (im.order !== 0) {
+          imagecont.push(im);
+        }
+      });
+      imagecont.sort((a, b) => a.order - b.order);
+      imagecont2.push(imagecont);
+    });
+    console.log('this.images :>> ', imagecont2);
+    this.images = imagecont2;
   }
+
+
+
   toggleSelected(e): void {
 
     this.clear();
     // loop trough all the items
-    for (let index = 1; index <= 5; index++) {
+    this.images[0].forEach(element => {
 
-      const element = index;
-      if (e !== index) {
-        document.getElementById(element.toString()).classList.add('notselected');
+      if (e !== element.item_id) {
+        const i = 'img_' + element.item_id;
+        document.getElementById(i).classList.add('notselected');
 
+      } else {
+        document.getElementById('img_' + e).classList.add('selected');
+        this.textContent = element.description;
+        this.depth = element.depth;
+        console.log('element.description :>> ', element.description);
       }
-    }
-    document.getElementById(e).classList.add('selected');
-  }
-
-  test2(e): any {
-    this.textContent = e.description;
-    this.toggleSelected(e.picId);
+    });
 
   }
+
+  highlight(e): any {
+    this.toggleSelected(e);
+    this.depthFlag = true;
+  }
+
+
   clear(): any {
-    for (let index = 1; index <= 5; index++) {
-      const element = index;
-      document.getElementById(element.toString()).classList.remove('selected');
-      document.getElementById(element.toString()).classList.remove('notselected');
 
-    }
+    this.images[0].forEach(e => {
+
+
+      document.getElementById('img_' + e.item_id).classList.remove('selected');
+      document.getElementById('img_' + e.item_id).classList.remove('notselected');
+
+    });
+
+    this.depthFlag = false;
   }
+
+
 }

@@ -32,23 +32,32 @@ img {
     border-bottom: 2px solid black;
 }
 
-.modalContent {
-    min-width: 800px;
-    width: 800px;
-}
 
 .soilSections {
-    padding-right: 20px;
     border-top: 2px solid black;
     border-right: 2px solid black;
 }
 
-.descriptionContainer {
-    max-width: 70%;
-    float: right;
 
-}
 
 .descriptionContainer div {
-    padding-right: 25px;
+    padding: 25px;
 }
+
+.desclabel{
+    font-weight: 500;
+}
+
+.imageContainer{
+    width: 250px;
+}
+
+.descriptionContainer {
+    margin-left: 20px;
+}
+
+#depthdesc{
+    padding: 20px 0px 20px 0px;
+    width: 300px;
+}
+

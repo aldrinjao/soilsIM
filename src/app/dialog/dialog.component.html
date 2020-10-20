@@ -1,28 +1,85 @@
 <div class="modal">
-  <h2 mat-dialog-title>{{data.name}}</h2>
+  <img src="./assets/header.png" height="60px" style="margin: auto;"/>
+  <div style="width: 100%; text-align: center;padding: 10px 0; ">
+    <h2 mat-dialog-title>{{locname}} ({{latitude}}°N, {{longitude}}°E)</h2>
+  </div>
   <mat-dialog-content class="mat-typography">
 
 
-    <div class="modalContent">
+    <div class="modalContent" fxLayoutAlign="start start">
       <div class="imageContainer" fxLayout="column" fxLayoutAlign="center center">
 
-          <div *ngFor="let i of data.images;let last = last" [ngClass]="{ 'last' : last }" class="soilSections">
-          
-            <img id="{{i.picId}}" src="../assets/site1/{{i.url}}" (click)="test2(i)">
-            <div style="height: 100%;width: 10px;background: red;"></div>
-          </div>
 
+        <div *ngFor="let im of images">
+
+          <div *ngFor="let i of im;let last = last" [ngClass]="{ 'last' : last }" class="soilSections"
+            fxLayoutAlign="start center">
+
+            <img id="img_{{i.item_id}}" src="{{i.picUrl}}" width="150px" (click)="highlight(i.item_id)">
+            <div style="height: 100%;width: 70px;padding:0px 10px;">{{i.depth}}cm</div>
+          </div>
+        </div>
 
         <button mat-button (click)='clear()'>Clear</button>
       </div>
 
       <div class="descriptionContainer">
-        <div>
-          <h1>Description</h1>
-          <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </h2>
 
+        <h2>Description</h2>
+
+        <table>
+          <tr>
+            <td> <label class="desclabel">Soil Sampling #: </label>
+            </td>
+            <td> {{soilSampleNum}}</td>
+          </tr>
+
+          <tr>
+            <td><label class="desclabel">Date of Sampling: </label></td>
+            <td>{{dateOfSampling | date }} </td>
+          </tr>
+
+
+          <tr>
+            <td> <label class="desclabel">Elevation: </label>
+            </td>
+            <td> {{elevation}}</td>
+          </tr>
+          <tr>
+            <td> <label class="desclabel">Relief: </label>
+            </td>
+            <td> {{relief}}</td>
+          </tr>
+          <tr>
+            <td> <label class="desclabel">Parent material: </label>
+            </td>
+            <td> {{parentMaterial}}</td>
+          </tr>
+
+          <tr>
+            <td> <label class="desclabel">Drainage: </label>
+            </td>
+            <td> {{drainage}}</td>
+          </tr>
+
+          <tr>
+            <td> <label class="desclabel">Collaborator: </label>
+            </td>
+            <td> {{collaborator}}</td>
+          </tr>
+
+          <tr>
+            <td> <label class="desclabel">Described by: </label>
+            </td>
+            <td> {{describedBy}}</td>
+          </tr>
+
+        </table>
+        <div *ngIf="depthFlag;" id='depthdesc'>
+          <h2>Depth: {{depth}} cm</h2>
           {{textContent}}
-      </div>
+        </div>
+
       </div>
     </div>
 
@@ -31,7 +88,7 @@
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
-    <button mat-button matDialogClose (click)='close()'>Cancel</button>
-    <button mat-button [mat-dialog-close]="true" (click)='close()'>Close</button>
+    <button mat-button matDialogClose>Cancel</button>
+    <button mat-button [mat-dialog-close]="true">Close</button>
   </mat-dialog-actions>
 </div>

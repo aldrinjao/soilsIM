@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 import { AngularFireModule } from '@angular/fire';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment2';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
