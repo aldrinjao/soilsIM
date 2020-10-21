@@ -20,22 +20,22 @@
 }
 
 
-img {
-    filter: brightness(80%);
-    /* border-right:2px solid white;
-    border-left:2px solid white; */
+img{
     cursor: zoom-in;
     display: block;
 }
 
+.cropIcon{
+    cursor: default;
+}
 .last {
-    border-bottom: 2px solid black;
+    border-bottom: 0px solid black;
 }
 
 
 .soilSections {
-    border-top: 2px solid black;
-    border-right: 2px solid black;
+    border-top: 0px solid black;
+    border-right: 0px solid black;
 }
 
 
@@ -56,8 +56,20 @@ img {
     margin-left: 20px;
 }
 
-#depthdesc{
+.depthdesc{
     padding: 20px 0px 20px 0px;
     width: 300px;
 }
 
+
+.labelCol{
+    width: 130px;
+}
+
+.contentCol{
+    width: 170px;
+}
+
+#descTable tr{
+    margin:5px 0px;
+}

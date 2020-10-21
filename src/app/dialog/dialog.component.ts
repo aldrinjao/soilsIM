@@ -32,6 +32,11 @@ export class DialogComponent implements OnInit {
   itemId: number;
   images: any = [];
   depthFlag: boolean;
+  horizon: string;
+  soilSeries: string;
+  splitCrops: any = [];
+
+
 
   ngOnInit(): void {
     const crops = [...new Set(this.data.map(t => t.crop))];
@@ -61,6 +66,8 @@ export class DialogComponent implements OnInit {
     this.soilSampleNum = this.filtered[0][0].soil_sample_num;
     this.describedBy = this.filtered[0][0].described_by;
     this.drainage = this.filtered[0][0].drainage;
+    this.soilSeries = this.filtered[0][0].soil_series;
+    this.splitCrops = this.filtered[0][0].crop.split(',');
 
 
     this.filtered.forEach(i => {
@@ -73,7 +80,9 @@ export class DialogComponent implements OnInit {
       imagecont.sort((a, b) => a.order - b.order);
       imagecont2.push(imagecont);
     });
-    console.log('this.images :>> ', imagecont2);
+    this.splitCrops = this.splitCrops.map(s => s.trim());
+
+    console.log('this.images :>> ', this.splitCrops);
     this.images = imagecont2;
   }
 
@@ -93,6 +102,7 @@ export class DialogComponent implements OnInit {
         document.getElementById('img_' + e).classList.add('selected');
         this.textContent = element.description;
         this.depth = element.depth;
+        this.horizon = element.horizon;
         console.log('element.description :>> ', element.description);
       }
     });

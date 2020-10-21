@@ -85,7 +85,8 @@ export class AppComponent {
             collaborator: sample.collaborator,
             soil_sample_num: sample.soil_sample_num,
             date_of_sampling: sample.date_of_sampling,
-            described_by: sample.described_by
+            described_by: sample.described_by,
+            horizon: sample.horizon
 
 
 

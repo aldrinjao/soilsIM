@@ -1,5 +1,5 @@
 <div class="modal">
-  <img src="./assets/header.png" height="60px" style="margin: auto;"/>
+  <img src="./assets/header.png" height="60px" style="margin: auto;" />
   <div style="width: 100%; text-align: center;padding: 10px 0; ">
     <h2 mat-dialog-title>{{locname}} ({{latitude}}°N, {{longitude}}°E)</h2>
   </div>
@@ -15,68 +15,88 @@
           <div *ngFor="let i of im;let last = last" [ngClass]="{ 'last' : last }" class="soilSections"
             fxLayoutAlign="start center">
 
-            <img id="img_{{i.item_id}}" src="{{i.picUrl}}" width="150px" (click)="highlight(i.item_id)">
-            <div style="height: 100%;width: 70px;padding:0px 10px;">{{i.depth}}cm</div>
+            <img id="img_{{i.item_id}}" src="{{i.picUrl}}" width="150px" (click)="highlight(i.item_id)" (mouseover)="highlight(i.item_id)" (mouseleave)="clear()">
+            <div style="height: 100%;width: 70px;padding:0px 10px;">{{i.depth}} cm</div>
           </div>
         </div>
 
-        <button mat-button (click)='clear()'>Clear</button>
       </div>
 
       <div class="descriptionContainer">
+        <div *ngIf="!depthFlag;" class='depthdesc'>
+          <h2>Description</h2>
 
-        <h2>Description</h2>
+          <table id='descTable'>
+            <tr>
+              <td class="labelcol"> <label class="desclabel">Soil Sampling #: </label>
+              </td>
+              <td class="contentcol"> {{soilSampleNum}}</td>
+            </tr>
 
-        <table>
-          <tr>
-            <td> <label class="desclabel">Soil Sampling #: </label>
-            </td>
-            <td> {{soilSampleNum}}</td>
-          </tr>
+            <tr>
+              <td><label class="desclabel">Sampling Date: </label></td>
+              <td>{{dateOfSampling | date }} </td>
+            </tr>
 
-          <tr>
-            <td><label class="desclabel">Date of Sampling: </label></td>
-            <td>{{dateOfSampling | date }} </td>
-          </tr>
+            <tr>
+              <td> <label class="desclabel">Crops: </label>
+              </td>
+              <td> 
+                <div fxLayout="row wrap" fxLayoutAlign="start start" style="padding:0;">
+                  <img class="cropIcon" *ngFor="let im of splitCrops" src="./assets/icons/{{im}}.png" width="40px" style="padding-right: 10px;" alt="{{im}}" title="{{im}}">
+                </div>
+
+              </td>
+            </tr>
+            <tr>
+
+            <tr>
+              <td> <label class="desclabel">Elevation: </label>
+              </td>
+              <td> {{elevation}}</td>
+            </tr>
+            <tr>
+              <td> <label class="desclabel">Relief: </label>
+              </td>
+              <td> {{relief}}</td>
+            </tr>
+            <tr>
+              <td> <label class="desclabel">Parent material: </label>
+              </td>
+              <td> {{parentMaterial}}</td>
+            </tr>
+
+            <tr>
+              <td> <label class="desclabel">Drainage: </label>
+              </td>
+              <td> {{drainage}}</td>
+            </tr>
+
+            <tr>
+              <td> <label class="desclabel">Soil Series: </label>
+              </td>
+              <td> {{soilSeries}}</td>
+            </tr>
 
 
-          <tr>
-            <td> <label class="desclabel">Elevation: </label>
-            </td>
-            <td> {{elevation}}</td>
-          </tr>
-          <tr>
-            <td> <label class="desclabel">Relief: </label>
-            </td>
-            <td> {{relief}}</td>
-          </tr>
-          <tr>
-            <td> <label class="desclabel">Parent material: </label>
-            </td>
-            <td> {{parentMaterial}}</td>
-          </tr>
+            <tr>
+              <td> <label class="desclabel">Collaborator: </label>
+              </td>
+              <td> {{collaborator}}</td>
+            </tr>
 
-          <tr>
-            <td> <label class="desclabel">Drainage: </label>
-            </td>
-            <td> {{drainage}}</td>
-          </tr>
+            <tr>
+              <td> <label class="desclabel">Described by: </label>
+              </td>
+              <td> {{describedBy}}</td>
+            </tr>
 
-          <tr>
-            <td> <label class="desclabel">Collaborator: </label>
-            </td>
-            <td> {{collaborator}}</td>
-          </tr>
+          </table>
+        </div>
 
-          <tr>
-            <td> <label class="desclabel">Described by: </label>
-            </td>
-            <td> {{describedBy}}</td>
-          </tr>
-
-        </table>
-        <div *ngIf="depthFlag;" id='depthdesc'>
-          <h2>Depth: {{depth}} cm</h2>
+        <div *ngIf="depthFlag;" class='depthdesc'>
+          <h2>Horizon: {{horizon}}</h2>
+          <h3>Depth: {{depth}} cm</h3>
           {{textContent}}
         </div>
 
