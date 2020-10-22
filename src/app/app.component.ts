@@ -44,19 +44,27 @@ export class AppComponent {
 
   public testObject: Soilprofile[];
 
-  public icon = {
-    icon: L.icon({
-      iconSize: [30, 30],
-      iconAnchor: [0, 20],
-      // specify the path here
-      iconUrl: './assets/pin.png'
-    })
-  };
 
 
   public map: Map;
   public zoom: number;
   public dialogReftest;
+
+  public rotateIcon = L.icon({
+    iconSize: [30, 30],
+    iconAnchor: [0, 20],
+    // specify the path here
+    iconUrl: './assets/pin2.png'
+  });
+
+
+  public defIcon = L.icon({
+    iconSize: [30, 30],
+    iconAnchor: [0, 20],
+    // specify the path here
+    iconUrl: './assets/pin.png'
+  })
+
 
   constructor(public dialog: MatDialog, private zone: NgZone, db: AngularFireDatabase) {
 
@@ -86,7 +94,8 @@ export class AppComponent {
             soil_sample_num: sample.soil_sample_num,
             date_of_sampling: sample.date_of_sampling,
             described_by: sample.described_by,
-            horizon: sample.horizon
+            horizon: sample.horizon,
+            pdfUrl: sample.pdfUrl
 
 
 
@@ -240,10 +249,26 @@ export class AppComponent {
       const latitude = elemente[0].lat;
       const longitude = elemente[0].long;
 
-      const test = L.marker([latitude, longitude], this.icon).addEventListener('click',
+      const markerOptions = {
+        icon: this.defIcon
+      }
+
+
+
+      const tempMarker = L.marker([latitude, longitude], markerOptions).addEventListener('click',
         () => {
           this.zone.run(() => { this.openDialog(elemente); });
-        }).addTo(this.map);
+        });
+      tempMarker.addEventListener('mouseover',
+        () => {
+          tempMarker.setIcon(this.rotateIcon);
+        });
+
+      tempMarker.addEventListener('mouseout',
+        () => {
+          tempMarker.setIcon(this.defIcon);
+        });
+      tempMarker.addTo(this.map)
     }
 
   }

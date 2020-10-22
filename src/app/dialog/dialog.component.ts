@@ -35,6 +35,7 @@ export class DialogComponent implements OnInit {
   horizon: string;
   soilSeries: string;
   splitCrops: any = [];
+  pdfUrl: string;
 
 
 
@@ -68,7 +69,7 @@ export class DialogComponent implements OnInit {
     this.drainage = this.filtered[0][0].drainage;
     this.soilSeries = this.filtered[0][0].soil_series;
     this.splitCrops = this.filtered[0][0].crop.split(',');
-
+    this.pdfUrl = this.filtered[0][0].pdfUrl;
 
     this.filtered.forEach(i => {
       imagecont = [];
@@ -82,7 +83,7 @@ export class DialogComponent implements OnInit {
     });
     this.splitCrops = this.splitCrops.map(s => s.trim());
 
-    console.log('this.images :>> ', this.splitCrops);
+    // console.log('this.images :>> ', this.splitCrops);
     this.images = imagecont2;
   }
 
@@ -103,7 +104,7 @@ export class DialogComponent implements OnInit {
         this.textContent = element.description;
         this.depth = element.depth;
         this.horizon = element.horizon;
-        console.log('element.description :>> ', element.description);
+        // console.log('element.description :>> ', element.description);
       }
     });
 
@@ -128,5 +129,8 @@ export class DialogComponent implements OnInit {
     this.depthFlag = false;
   }
 
+  downloadPdf(): any {
+    window.open(this.pdfUrl, '_blank');
+  }
 
 }

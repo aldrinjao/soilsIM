@@ -9,17 +9,17 @@
     <div class="modalContent" fxLayoutAlign="start start">
       <div class="imageContainer" fxLayout="column" fxLayoutAlign="center center">
 
-
         <div *ngFor="let im of images">
 
           <div *ngFor="let i of im;let last = last" [ngClass]="{ 'last' : last }" class="soilSections"
             fxLayoutAlign="start center">
 
-            <img id="img_{{i.item_id}}" src="{{i.picUrl}}" width="150px" (click)="highlight(i.item_id)" (mouseover)="highlight(i.item_id)" (mouseleave)="clear()">
+            <img id="img_{{i.item_id}}" src="{{i.picUrl}}" width="150px" (click)="highlight(i.item_id)"
+              (mouseover)="highlight(i.item_id)" (mouseleave)="clear()">
             <div style="height: 100%;width: 70px;padding:0px 10px;">{{i.depth}} cm</div>
           </div>
         </div>
-
+hover over the image
       </div>
 
       <div class="descriptionContainer">
@@ -41,9 +41,10 @@
             <tr>
               <td> <label class="desclabel">Crops: </label>
               </td>
-              <td> 
+              <td>
                 <div fxLayout="row wrap" fxLayoutAlign="start start" style="padding:0;">
-                  <img class="cropIcon" *ngFor="let im of splitCrops" src="./assets/icons/{{im}}.png" width="40px" style="padding-right: 10px;" alt="{{im}}" title="{{im}}">
+                  <img class="cropIcon" *ngFor="let im of splitCrops" src="./assets/icons/{{im}}.png" alt="{{im}}"
+                    title="{{im}}">
                 </div>
 
               </td>
@@ -106,9 +107,12 @@
 
 
   </mat-dialog-content>
-
   <mat-dialog-actions align="end">
-    <button mat-button matDialogClose>Cancel</button>
-    <button mat-button [mat-dialog-close]="true">Close</button>
+      <button mat-button (click)='downloadPdf()'>
+        <div fxLayout="row" fxLayoutAlign="center center"><img class="downloadicon" src="./assets/file.png"> Download
+        </div>
+      </button>
+
+    <button mat-button matDialogClose>Close</button>
   </mat-dialog-actions>
 </div>

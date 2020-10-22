@@ -1,5 +1,5 @@
 #map{
-    height: 100vh;
+    height: calc(100vh - 64px);
 }
 
 .sarainav{
@@ -12,4 +12,11 @@
 .mat-dialog-container{
     background-color: white !important;
     color: black;
+}
+.leaflet-marker-icon{
+    transition: transform .5s;
+}
+
+.leaflet-marker-icon:hover{
+    transform: rotate(30deg);
 }
